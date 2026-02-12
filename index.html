@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeployClaw — White-Glove OpenClaw Deployment, 20% Less</title>
+<meta name="description" content="Expert OpenClaw deployment and managed care for founders and exec teams. Remote-first, AI-assisted monitoring, 20% less than alternatives.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a25;--text:#e8e8ed;--text2:#9a9ab0;--green:#00d68f;--green2:#00b876;--green-glow:rgba(0,214,143,.15);--radius:12px;--max:1100px}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-.5px}
+.logo span{color:var(--green)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--text2);font-size:.875rem;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 24px;border-radius:8px;font-size:.9rem;font-weight:600;text-decoration:none!important;transition:all .2s;cursor:pointer;border:none}
+.btn-primary{background:var(--green);color:#000}
+.btn-primary:hover{background:var(--green2);transform:translateY(-1px)}
+.btn-outline{border:1px solid rgba(255,255,255,.15);color:#fff;background:transparent}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-sm{padding:8px 18px;font-size:.8rem}
+
+/* HERO */
+.hero{padding:140px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-block;padding:6px 16px;border-radius:20px;font-size:.8rem;font-weight:600;color:var(--green);background:var(--green-glow);border:1px solid rgba(0,214,143,.2);margin-bottom:24px}
+.hero h1{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;max-width:800px;margin:0 auto 20px}
+.hero h1 span{background:linear-gradient(135deg,var(--green),#00f5a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.15rem;color:var(--text2);max-width:580px;margin:0 auto 36px;line-height:1.7}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:64px;flex-wrap:wrap}
+.hero-stats div{text-align:center}
+.hero-stats strong{display:block;font-size:1.8rem;font-weight:700;color:#fff}
+.hero-stats span{font-size:.8rem;color:var(--text2)}
+
+/* SECTIONS */
+section{padding:80px 24px}
+.container{max-width:var(--max);margin:0 auto}
+.section-label{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:var(--green);font-weight:600;margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+.section-sub{color:var(--text2);max-width:560px;font-size:1.05rem;line-height:1.7}
+.section-header{text-align:center;margin-bottom:56px}
+.section-header .section-sub{margin:0 auto}
+
+/* WHAT IS */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.what-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:36px}
+.what-card h3{font-size:1.2rem;margin-bottom:12px;color:#fff}
+.what-card p{color:var(--text2);font-size:.95rem;line-height:1.7}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.step{text-align:center;padding:32px 24px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);position:relative}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--green-glow);border:2px solid var(--green);display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:16px}
+.step h3{font-size:1.15rem;margin-bottom:8px}
+.step p{color:var(--text2);font-size:.9rem}
+
+/* PRICING */
+.pricing-section{background:var(--bg2)}
+.tab-bar{display:flex;justify-content:center;gap:4px;background:var(--bg3);border-radius:10px;padding:4px;max-width:360px;margin:0 auto 48px}
+.tab-btn{flex:1;padding:10px 20px;border:none;background:transparent;color:var(--text2);font-size:.9rem;font-weight:600;border-radius:8px;cursor:pointer;transition:all .2s}
+.tab-btn.active{background:var(--green);color:#000}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pricing-card{background:var(--bg);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column}
+.pricing-card.featured{border-color:var(--green);position:relative}
+.pricing-card.featured::before{content:'Most Popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-size:.7rem;font-weight:700;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.pricing-card h3{font-size:1.1rem;margin-bottom:4px}
+.pricing-card .price{font-size:2.2rem;font-weight:800;color:#fff;margin:12px 0 4px}
+.pricing-card .price span{font-size:.9rem;font-weight:400;color:var(--text2)}
+.pricing-card .price-note{font-size:.8rem;color:var(--text2);margin-bottom:20px}
+.pricing-card ul{list-style:none;margin-bottom:28px;flex:1}
+.pricing-card li{padding:6px 0;font-size:.88rem;color:var(--text2);position:relative;padding-left:22px}
+.pricing-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+.pricing-card .btn{width:100%;text-align:center}
+.pricing-hidden{display:none}
+
+/* WHY US */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.why-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:28px}
+.why-card .icon{font-size:1.5rem;margin-bottom:12px}
+.why-card h3{font-size:1.05rem;margin-bottom:8px;color:#fff}
+.why-card p{font-size:.88rem;color:var(--text2);line-height:1.6}
+
+/* SOCIAL PROOF */
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testimonial{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:28px}
+.testimonial p{font-size:.95rem;font-style:italic;color:var(--text);margin-bottom:16px;line-height:1.6}
+.testimonial .author{font-size:.8rem;color:var(--text2)}
+.testimonial .author strong{color:#fff}
+
+/* FAQ */
+.faq-list{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06)}
+.faq-q{width:100%;background:none;border:none;color:#fff;font-size:1rem;font-weight:600;text-align:left;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:1.4rem;color:var(--text2);transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--green)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-a p{padding:0 0 20px;color:var(--text2);font-size:.92rem;line-height:1.7}
+
+/* CTA BANNER */
+.cta-banner{text-align:center;padding:80px 24px;background:linear-gradient(180deg,var(--bg) 0%,rgba(0,214,143,.05) 100%)}
+.cta-banner h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;margin-bottom:16px}
+.cta-banner p{color:var(--text2);margin-bottom:32px;font-size:1.05rem}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,.06);padding:32px 24px;text-align:center}
+footer p{color:var(--text2);font-size:.8rem}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links a:not(.btn){display:none}
+  .what-grid,.steps,.pricing-grid,.why-grid,.testimonials{grid-template-columns:1fr}
+  .hero-stats{gap:32px}
+  .hero h1{font-size:2rem}
+  section{padding:56px 24px}
+}
+@media(max-width:480px){
+  .pricing-card .price{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-inner">
+  <div class="logo">Deploy<span>Claw</span></div>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#book" class="btn btn-primary btn-sm">Book a Free Call</a>
+  </div>
+</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">🟢 Save 20% vs. other deployment services</div>
+  <h1>Your AI Executive Agent, <span>Deployed Right</span></h1>
+  <p>White-glove OpenClaw deployment for founders and exec teams. We install, harden, integrate, and maintain — so you get leverage without the project.</p>
+  <div class="hero-ctas">
+    <a href="#book" class="btn btn-primary">Book a Free Call</a>
+    <a href="#pricing" class="btn btn-outline">See Pricing</a>
+  </div>
+  <div class="hero-stats">
+    <div><strong>20%</strong><span>Lower cost</span></div>
+    <div><strong>100%</strong><span>Remote-first</span></div>
+    <div><strong>24hr</strong><span>Avg. turnaround</span></div>
+    <div><strong>14 days</strong><span>Hypercare included</span></div>
+  </div>
+</section>
+
+<section id="what">
+<div class="container">
+  <div class="section-header">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">OpenClaw, Deployed & Managed For You</h2>
+    <p class="section-sub">Stop burning engineering hours on configs and security patches. We handle everything.</p>
+  </div>
+  <div class="what-grid fade-in">
+    <div class="what-card">
+      <h3>What is OpenClaw?</h3>
+      <p>An open-source AI assistant that triages email, schedules meetings, drafts replies, and automates workflows across your tools — running on your own hardware, fully under your control.</p>
+    </div>
+    <div class="what-card">
+      <h3>What's an "Executive Agent"?</h3>
+      <p>1 Executive Agent = 1 OpenClaw instance configured for one identity (CEO inbox, CFO, Head of Sales, shared EA). This keeps pricing fair and security boundaries clean. Most 4–50 employee teams deploy 2–6 agents.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="how" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-header">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Live in 3 Steps</h2>
+    <p class="section-sub">From kickoff call to running agent — typically same day.</p>
+  </div>
+  <div class="steps fade-in">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Kickoff</h3>
+      <p>We learn your goals, map your systems, and plan the deployment — all on a 30-minute call.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Deploy</h3>
+      <p>We install, harden, and integrate OpenClaw on your hardware. Remote setup — no travel required.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Hypercare</h3>
+      <p>14 days of hands-on tuning, monitoring, and support to make sure everything runs perfectly.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="pricing" class="pricing-section">
+<div class="container">
+  <div class="section-header">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple, Transparent Pricing</h2>
+    <p class="section-sub">20% less than comparable services. No hidden fees.</p>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="start">Get Started</button>
+    <button class="tab-btn" data-tab="care">Managed Care</button>
+  </div>
+
+  <div id="tab-start" class="pricing-grid fade-in">
+    <div class="pricing-card">
+      <h3>Deploy First Agent</h3>
+      <div class="price">$1,248</div>
+      <div class="price-note">One-time · Remote</div>
+      <ul>
+        <li>Full install &amp; security hardening</li>
+        <li>Email &amp; calendar integration</li>
+        <li>Up to 3 custom workflows</li>
+        <li>Documentation &amp; runbook</li>
+        <li>14-day hypercare included</li>
+        <li>Dedicated support channel</li>
+      </ul>
+      <a href="#book" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="pricing-card featured">
+      <h3>In-Person Setup</h3>
+      <div class="price">$2,496</div>
+      <div class="price-note">One-time · On-site</div>
+      <ul>
+        <li>Everything in Remote, plus:</li>
+        <li>On-site deployment at your location</li>
+        <li>Hardware setup &amp; network config</li>
+        <li>Hands-on team training</li>
+        <li>14-day hypercare included</li>
+        <li>Dedicated support channel</li>
+      </ul>
+      <a href="#book" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="pricing-card">
+      <h3>Add Another Agent</h3>
+      <div class="price">+$1,248 <span>each</span></div>
+      <div class="price-note">One-time · Per agent</div>
+      <ul>
+        <li>Additional identity / role</li>
+        <li>Independent security boundaries</li>
+        <li>Custom workflow configuration</li>
+        <li>Multi-agent orchestration</li>
+        <li>14-day hypercare included</li>
+        <li>Volume discounts available</li>
+      </ul>
+      <a href="#book" class="btn btn-outline">Contact Us</a>
+    </div>
+  </div>
+
+  <div id="tab-care" class="pricing-grid pricing-hidden fade-in">
+    <div class="pricing-card">
+      <h3>Care Standard</h3>
+      <div class="price">$1,960<span>/mo</span></div>
+      <div class="price-note">Up to 2 agents</div>
+      <ul>
+        <li>Continuous monitoring</li>
+        <li>AI-assisted health checks</li>
+        <li>Updates &amp; security patches</li>
+        <li>2 hrs/mo hands-on support</li>
+        <li>Dedicated support channel</li>
+        <li>Business-hours response</li>
+      </ul>
+      <a href="#book" class="btn btn-outline">Get Started</a>
+    </div>
+    <div class="pricing-card featured">
+      <h3>Care Plus</h3>
+      <div class="price">$3,900<span>/mo</span></div>
+      <div class="price-note">Up to 5 agents</div>
+      <ul>
+        <li>Everything in Standard, plus:</li>
+        <li>Priority support response</li>
+        <li>Monthly performance review</li>
+        <li>6 hrs/mo hands-on support</li>
+        <li>Workflow optimization</li>
+        <li>AI-assisted drift detection</li>
+      </ul>
+      <a href="#book" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="pricing-card">
+      <h3>Care Enterprise</h3>
+      <div class="price">$7,800+<span>/mo</span></div>
+      <div class="price-note">Custom fleet</div>
+      <ul>
+        <li>Everything in Plus, plus:</li>
+        <li>SLA guarantees</li>
+        <li>Fleet-wide standards</li>
+        <li>Audit logs &amp; compliance</li>
+        <li>Security reviews</li>
+        <li>Dedicated account manager</li>
+      </ul>
+      <a href="#book" class="btn btn-outline">Contact Us</a>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:28px;font-size:.85rem;color:var(--text2)">Hardware at cost (Mac mini ~$600) or bring your own. Mac mini required for iMessage.</p>
+</div>
+</section>
+
+<section id="why">
+<div class="container">
+  <div class="section-header">
+    <div class="section-label">Why DeployClaw</div>
+    <h2 class="section-title">Skip the DIY Headaches</h2>
+    <p class="section-sub">OpenClaw is open source — you could do it yourself. Here's why teams choose us instead.</p>
+  </div>
+  <div class="why-grid fade-in">
+    <div class="why-card"><div class="icon">💰</div><h3>20% Lower Cost</h3><p>Same expert deployment and care as premium providers — priced 20% below the competition. No corners cut.</p></div>
+    <div class="why-card"><div class="icon">🌍</div><h3>Remote-First</h3><p>We deploy teams anywhere in the world. No geographic restrictions, no travel surcharges for remote setup.</p></div>
+    <div class="why-card"><div class="icon">🤖</div><h3>AI-Assisted Monitoring</h3><p>Our own agents continuously monitor your agents — catching drift, broken workflows, and issues before you notice.</p></div>
+    <div class="why-card"><div class="icon">⚡</div><h3>Faster Turnaround</h3><p>Most deployments go live same-day. Multi-agent rollouts typically complete within 48 hours.</p></div>
+    <div class="why-card"><div class="icon">🔒</div><h3>Security-First</h3><p>Every deployment follows the official hardening guide. Audit trails, access controls, least-privilege — configured to pass security review.</p></div>
+    <div class="why-card"><div class="icon">💬</div><h3>Dedicated Support Channel</h3><p>Every customer gets a dedicated channel for direct access to our team. No ticket queues, no chatbots.</p></div>
+  </div>
+</div>
+</section>
+
+<section style="background:var(--bg2)">
+<div class="container">
+  <div class="section-header">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">What People Are Saying</h2>
+  </div>
+  <div class="testimonials fade-in">
+    <div class="testimonial">
+      <p>"Genuinely the most incredible sci-fi takeoff-adjacent thing I have seen recently."</p>
+      <div class="author"><strong>Early Adopter</strong> · CEO, 12-person startup</div>
+    </div>
+    <div class="testimonial">
+      <p>"It feels like hiring an employee rather than opening another chat window. DeployClaw had us live in under 4 hours."</p>
+      <div class="author"><strong>Founder</strong> · Series A SaaS company</div>
+    </div>
+    <div class="testimonial">
+      <p>"We tried setting it up ourselves — spent two weekends. DeployClaw did it in an afternoon and it actually works."</p>
+      <div class="author"><strong>Head of Ops</strong> · 30-person agency</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="faq">
+<div class="container">
+  <div class="section-header">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item"><button class="faq-q">What is OpenClaw?</button><div class="faq-a"><p>An open-source AI assistant that can triage email, schedule meetings, draft replies, and automate workflows across your tools — running on your own hardware.</p></div></div>
+    <div class="faq-item"><button class="faq-q">What's included in implementation?</button><div class="faq-a"><p>Install and security hardening, email and calendar integration, up to 3 mission-critical workflows, documentation, and 14-day hypercare. In-person setups include on-site deployment and hands-on training.</p></div></div>
+    <div class="faq-item"><button class="faq-q">How long does setup take?</button><div class="faq-a"><p>Most teams go live same-day. Expect 4–6 hours for single-agent deployments and 5–8 hours for multi-agent rollouts, typically across one or two sessions.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Do you offer support after setup?</button><div class="faq-a"><p>Every deployment includes a dedicated support channel and 14-day hypercare. For ongoing monitoring, updates, and hands-on support, choose a Managed Care plan.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Is OpenClaw safe to run?</button><div class="faq-a"><p>It's an AI with access to your email and calendar — the risk is real. We mitigate it with hardening, audit trails, and access controls configured to pass your security team's review.</p></div></div>
+    <div class="faq-item"><button class="faq-q">What access do you need during setup?</button><div class="faq-a"><p>Temporary access to the machine and the accounts you're connecting. We use least privilege and recommend credential rotation after go-live.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can you deploy multiple agents?</button><div class="faq-a"><p>Yes — it's the most common case. We help decide which roles need their own agent vs. shared workflows, and handle orchestration between them.</p></div></div>
+    <div class="faq-item"><button class="faq-q">How are you 20% cheaper?</button><div class="faq-a"><p>Remote-first operations, AI-assisted monitoring that reduces manual overhead, and lean team structure. Same quality deployment, lower cost to deliver.</p></div></div>
+  </div>
+</div>
+</section>
+
+<section class="cta-banner" id="book">
+  <h2>Ready to Deploy Your Executive Agent?</h2>
+  <p>Book a free 15-minute call. We'll scope your deployment and have you live within days.</p>
+  <a href="#book" class="btn btn-primary" style="padding:14px 36px;font-size:1rem">Book a Free Call →</a>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2026 DeployClaw. Not affiliated with OpenClaw. OpenClaw is open-source software.</p>
+  </div>
+</footer>
+
+<script>
+// Pricing tabs
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab=btn.dataset.tab;
+    document.getElementById('tab-start').classList.toggle('pricing-hidden',tab!=='start');
+    document.getElementById('tab-care').classList.toggle('pricing-hidden',tab!=='care');
+  });
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});
+    if(!wasOpen){item.classList.add('open');item.querySelector('.faq-a').style.maxHeight=item.querySelector('.faq-a').scrollHeight+'px';}
+  });
+});
+
+// Fade in on scroll
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.15});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
