@@ -376,8 +376,15 @@ footer p{color:var(--text2);font-size:.8rem}
 
 <section class="cta-banner" id="book">
   <h2>Ready to Deploy Your Executive Agent?</h2>
-  <p>Book a free 15-minute call. We'll scope your deployment and have you live within days.</p>
-  <a href="#book" class="btn btn-primary" style="padding:14px 36px;font-size:1rem">Book a Free Call →</a>
+  <p>Join the waitlist or book a free 15-minute scoping call. We'll have you live within days.</p>
+  <div style="max-width:480px;margin:0 auto 24px;">
+    <form id="waitlist-form" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <input type="email" id="waitlist-email" placeholder="you@company.com" required style="flex:1;min-width:220px;padding:14px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:var(--bg2);color:#fff;font-size:.95rem;outline:none;">
+      <button type="submit" class="btn btn-primary" style="padding:14px 28px;font-size:.95rem;white-space:nowrap">Join Waitlist →</button>
+    </form>
+    <p id="waitlist-msg" style="margin-top:12px;font-size:.85rem;color:var(--green);display:none;">🎉 You're on the list! We'll reach out soon.</p>
+  </div>
+  <p style="font-size:.9rem;color:var(--text2)">Or <a href="mailto:deployclaw@proton.me" style="color:var(--green);text-decoration:underline;">email us directly</a> to schedule a call.</p>
 </section>
 
 <footer>
@@ -417,6 +424,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     const t=document.querySelector(a.getAttribute('href'));
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
+});
+
+// Waitlist form (stores locally + sends to backend when available)
+document.getElementById('waitlist-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const email=document.getElementById('waitlist-email').value;
+  // Store locally
+  const waitlist=JSON.parse(localStorage.getItem('deployclaw_waitlist')||'[]');
+  waitlist.push({email,ts:Date.now()});
+  localStorage.setItem('deployclaw_waitlist',JSON.stringify(waitlist));
+  // Show confirmation
+  document.getElementById('waitlist-msg').style.display='block';
+  document.getElementById('waitlist-email').value='';
+  // TODO: POST to /api/waitlist when backend is live
 });
 </script>
 </body>
